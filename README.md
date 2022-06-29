@@ -41,7 +41,7 @@ The relevant framework files are included in the following folders.
   - `npm i`
 
 - Besides the dependencies installed running the command above, it's necessary to install
-  - python (recommenda 3.10 version)
+  - python (recommended 3.10 version)
   - flask
   - pysqlite3
 
