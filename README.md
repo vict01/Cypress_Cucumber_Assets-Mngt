@@ -17,11 +17,12 @@
 
 ```
 1. Cypress: Framework used to automate the actions in the browser and locate elements.
-2. Mocha: Testing framework that provides a BDD/TDD and easy-to-read syntax.
-3. Chai: BDD/TDD assertion library that allows apply assertion over the test.
-4. Node.js: The Runtime environment that allows packaging and manage the dependencies.
-5. ReactJS application: Which will be the UI application under test.
-6. Python flask application: Corresponding the Back-end and api side.
+2. Cucumber: BDD Framework that allows behaviors to be specified in a logical and understandable language.
+3. Mocha: Testing framework that provides a BDD/TDD and easy-to-read syntax.
+4. Chai: BDD/TDD assertion library that allows apply assertion over the test.
+5. Node.js: The Runtime environment that allows packaging and manage the dependencies.
+6. ReactJS application: Which will be the UI application under test.
+7. Python flask application: Corresponding the Back-end and api side.
 ```
 
 <p align="left" style="font-size: 1.2rem; color: orange;"> Framework Structure </p>
