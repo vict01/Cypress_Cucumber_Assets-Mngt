@@ -1,0 +1,13 @@
+{
+    "appData": {
+        "addAssetsUrl": "http://localhost:3000/addAsset",
+        "getAssetsUrl": "http://localhost:3000/getAssets"
+    },
+    "credentials": {
+        "username": "",
+        "password": ""
+    },
+    "webElements": {
+        "defaultElement": ""
+    }
+}

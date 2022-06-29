@@ -1,0 +1,30 @@
+Blackbox/Whitebox testing strategies
+
+Step #1: Scope 
+   - Create, review, sort and search assets
+
+Step #2: Test Approach
+   - Exploratory testing
+   - Test cases design
+   - Test automation
+   - Defect report
+
+Step #3: Test Environment
+   - Localhost
+   • Front-end stored under src/ folder, (ReactJS application)
+   • Back-end is a python flask application under api/ folder
+
+Step #4: Testing Tools
+   - Tests use cypress + cucumber
+
+Step #5: Release Control
+   - Github
+
+Step #6: Defect tracking and test report
+   - Only report, follow up no applicable
+
+Step #7: Risk Analysis
+   - No applicable
+
+Step #8: Review And Approvals
+    - No applicable

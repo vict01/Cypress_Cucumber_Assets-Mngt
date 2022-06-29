@@ -1,0 +1,6 @@
+.vscode
+dist
+node_modules
+cypress/videos
+cypress/screenshots
+**/package-lock.json

@@ -1,0 +1,65 @@
+                   Defect summary and and steps to reproduce
+
+******************************* Whitebox *******************************
+Defect #1:  
+   - Description:
+      Test was not able to run due to bad setting in cypress.json
+
+   - Steps to reproduce:
+   • Go to cypress.json
+   • Check the line testFiles
+   • It should be "testFiles": "*/.{feature,features}" instead of "testFiles": "*/.feature" 
+
+Defect #2:  
+   - Description:
+      It's possible to add assets without the required format, via the backend/api
+
+   - Steps to reproduce:
+   • Go to any HTTP client (it can be postmand or by using request command in cypress)
+   • Run http://localhost:3000/addAsset/undefined (for example)
+   • The asset is created successfully
+
+Defect #3:  
+   - Description:
+      There is a typo in the response message trying to add an already asset, via the backend/api
+
+   - Steps to reproduce:
+   • Go to any HTTP client (it can be postmand or by using request command in cypress)
+   • Run http://localhost:3000/addAsset/ISIN0000000001 (for example, it must exist)
+   • Look at how the response message says "Value exisits"
+
+
+******************************* Blackbox *******************************
+Defect #4:  
+   - Description:
+      There is a typo in the confirmation message after adding an asset
+      
+   - Steps to reproduce:
+   • Go to the Add Asset tab
+   • Enter a nonexisting asset name in the input box
+   • Press send button
+   • Look at how the confirmation message says "Sucssess" 
+
+Defect #5:  
+   - Description:
+      There is a typo in the alert message trying to add an already asset
+      
+   - Steps to reproduce:
+   • Go to the Add Asset tab
+   • Enter an existing asset name in the input box
+   • Press send button
+   • Look at how the alert message says "already"
+
+Defect #6:  
+   - Description:
+      The description tab says that the User has abbility to Filter by assert name, 
+      but only it's seen Search by assert name. It's not clear if both actions are the same.
+
+   - Steps to reproduce:
+   • Go to the Existing Asset tab
+   • Notice that there's no option to fileter, only to search
+   • It's not clear if both actions are the same, or the filtering is missing
+
+******************************* NOTES *******************************
+To see the bugs found via automation, go to testAddAssets.js and uncomment the commented lines,
+then run the test, so that failure happens accordingly.
