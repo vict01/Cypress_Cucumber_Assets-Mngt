@@ -32,8 +32,9 @@
 The relevant framework files are included in the following folders.
 
 1. test strategy and defect report: Contain the test strategy along with the bugs report.
-2. fixtures, plugins and support: Contain constants, configuration and methods tha support the tests.
-3. integration: Contains the test and feature files that encompases the steps and scenarios to be executed.
+2. cypress\fixtures, plugins and support: Contain constants, configuration and methods tha support the tests.
+3. cypress\integration: Contains the test and feature files that encompases the steps and scenarios to be executed.
+4. cypress\reports\cucumber-htmlreport.html: Contains the test result report in HTML format.
 ##
 
 <p align="left" style="font-size: 1.2rem; color: orange;"> Requirements to run the test </p>
