@@ -53,11 +53,12 @@ Then('Verify there is no result in the table', () => {
     })
 })
 
-Given('I select the entry view in {string}', (entry) => {
+Given('I select the entry view in: {int}', (entry) => {
+    entry = entry.toString()
     cy.setShowEntry(entry)
 })
 
-And('Verify the amount of assets is in the table is {int}', (entry) => {
+And('Verify the amount of assets in the table is: {int}', (entry) => {
     cy.getTableData().then(arr => {
         expect(arr.length).eq(entry)
     })

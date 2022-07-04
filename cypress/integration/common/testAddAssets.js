@@ -25,7 +25,7 @@ When('Validate page title and url', () => {
     cy.url().should('eq', `${Cypress.config('baseUrl')}/add`)
 })
 
-And('I type a valid name starting with {string} in the asset input box', (text) => {
+And(/^I type a valid name starting with ([^"]*) in the asset input box$/, (text) => {
     counter = Cypress.env('varCounter')
     cy.createAssetName(text, counter).then(element => {
         assetName = element
@@ -52,20 +52,19 @@ And('I type an existing name in the asset input box', () => {
     })
 })
 
-And('I type the name {string} in the asset input box', (text) => {
-    cy.get('#defaultFormAddAsset').type(text).invoke('val').then(el => {
+And('I type an invalid name in the asset input box', (text) => {
+    assetName = text.rows().toString()
+    cy.get('#defaultFormAddAsset').type(assetName).invoke('val').then(el => {
         cy.log(`The text entered was: ${el}`)
-        expect(el).to.eq(text)
+        expect(el).to.eq(assetName)
     })
-
-    cy.interceptAddAssets(text)
 })
 
 And('I press send button', () => {
     cy.clickOnSendButton()
 })
 
-And('Validate the asset {string} is added successfully', () => {
+And('Validate the asset was added successfully', () => {
     cy.wait('@assetAdded').then((interception) => {
         let resp = interception.response
         expect(resp.body).includes("Ok")
@@ -87,7 +86,6 @@ Then('I close notification message about the result adding asset', () => {
 Then('Validate the asset is not added due to unmatching format', () => {
     cy.get('.modal-title').should('not.exist')
     cy.get('[data-test="modal-body"]').should('not.exist')
-    cy.get('@assetAdded').should('be.null')
     cy.get('.valid-feedback').should('not.be.visible')
 })
 

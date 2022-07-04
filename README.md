@@ -18,11 +18,12 @@
 ```
 1. Cypress: Framework used to automate the actions in the browser and locate elements.
 2. Cucumber: BDD Framework that allows behaviors to be specified in a logical and understandable language.
-3. Mocha: Testing framework that provides a BDD/TDD and easy-to-read syntax.
-4. Chai: BDD/TDD assertion library that allows apply assertion over the test.
-5. Node.js: The Runtime environment that allows packaging and manage the dependencies.
-6. ReactJS application: Which will be the UI application under test.
-7. Python flask application: Corresponding the Back-end and api side.
+3. Cucumber-html-reporter: HTML reports generator based on cucumber feature files test results.
+4. Mocha: Testing framework that provides a BDD/TDD and easy-to-read syntax.
+5. Chai: BDD/TDD assertion library that allows apply assertion over the test.
+6. Node.js: The Runtime environment that allows packaging and manage the dependencies.
+7. ReactJS application: Which will be the UI application under test.
+8. Python flask application: Corresponding the Back-end and api side.
 ```
 
 <p align="left" style="font-size: 1.2rem; color: orange;"> Framework Structure </p>
@@ -42,8 +43,8 @@ The relevant framework files are included in the following folders.
 
 - Besides the dependencies installed running the command above, it's necessary to install
   - python (recommended 3.10 version)
-  - flask
-  - pysqlite3
+  - flask (`pip install pysqlite3`)
+  - pysqlite3 (`pip install flask`)
 
 - Since this test was prepared in Windows, take into account next changes were made in the start-api script in the package.json:
   - `It was changed export by set`
@@ -52,9 +53,9 @@ The relevant framework files are included in the following folders.
 <p align="left" style="font-size: 1.2rem; color: orange;"> How to run the test </p>
  
 - To start the the api services, build the app and start it, run:
-  - npm run start-api
-  - npm run build
-  - npm run start
+  - `npm run start-api`
+  - `npm run build`
+  - `npm run start`
 
 - To run all the tests in headed mode (opening the web browser), so that run one after the other, with no pause, run
   - `npm run cy:run`
@@ -67,8 +68,9 @@ The relevant framework files are included in the following folders.
 
 > Note (After running the tests):
 
-- Test result are visible in the Cypress UI panel, when you run test using the Cypress UI
-- Test result are visible as well in the VSC console (terminal)
+- Test results are visible in the Cypress UI panel, when you run test using the Cypress UI
+- Test results are visible as well in the VSC terminal console
+- Test result report in HTML format can be found in: `reports\cucumber-htmlreport.html\index.html`
 
 For further information about the author, please consult
 [Victor Caminero LinkedIn profile](https://www.linkedin.com/in/victor-caminero/)
