@@ -1,16 +1,12 @@
 /// <reference types="cypress" />
 import { Given, When, And, Then, Before } from "cypress-cucumber-preprocessor/steps"
-let counter, assetName
+import { assetNameInput, feedbackSAlertAddingAsset, labelConfirmationAddingAsset, headingAlertAddingAsset }
+from '../../support/POM/addAssetsPage'
+
+let assetName
 
 Before(() => {
     cy.visit('/')
-})
-
-Before({ tags: "@counterNeeded" }, () => {
-    cy.log(`Getting assets amount to set the counter...`)
-    if (counter === undefined || counter === null || isNaN(counter)) {
-        cy.setCounter()
-    }
 })
 
 Given('I go to the Add Asset tab', () => {
@@ -26,10 +22,9 @@ When('Validate page title and url', () => {
 })
 
 And(/^I type a valid name starting with ([^"]*) in the asset input box$/, (text) => {
-    counter = Cypress.env('varCounter')
-    cy.createAssetName(text, counter).then(element => {
+    cy.createAssetName().then(element => {
         assetName = element
-        cy.get('#defaultFormAddAsset').type(assetName)
+        assetNameInput().type(assetName)
             .invoke('val').then(el => {
                 cy.log(`The text entered was: ${el}`)
                 expect(el).to.eq(assetName)
@@ -43,7 +38,7 @@ And('I type an existing name in the asset input box', () => {
     cy.getTheFirstAssets().then(assetName => {
         cy.log("This is the first: ", assetName)
 
-        cy.get('#defaultFormAddAsset').type(assetName).invoke('val').then(el => {
+        assetNameInput().type(assetName).invoke('val').then(el => {
             cy.log(`The text entered was: ${el}`)
             expect(el).to.eq(assetName)
         })
@@ -54,7 +49,7 @@ And('I type an existing name in the asset input box', () => {
 
 And('I type an invalid name in the asset input box', (text) => {
     assetName = text.rows().toString()
-    cy.get('#defaultFormAddAsset').type(assetName).invoke('val').then(el => {
+    assetNameInput().type(assetName).invoke('val').then(el => {
         cy.log(`The text entered was: ${el}`)
         expect(el).to.eq(assetName)
     })
@@ -72,11 +67,11 @@ And('Validate the asset was added successfully', () => {
     })
 
     cy.get('@assetAdded').its('request.url').should('include', assetName)
-    cy.get('[data-test="modal-body"]')
+    feedbackSAlertAddingAsset()
         .should('have.text', `Asset ${assetName} was added to the list`)
 
-    // cy.get('.modal-title').should('have.text', 'Success') // typo Bug, it says "Sucssess"
-    cy.get('.valid-feedback').should('be.visible')
+    // headingAlertAddingAsset().should('have.text', 'Success') // typo Bug, it says "Sucssess"
+    labelConfirmationAddingAsset().should('be.visible')
 })
 
 Then('I close notification message about the result adding asset', () => {
@@ -84,9 +79,9 @@ Then('I close notification message about the result adding asset', () => {
 })
 
 Then('Validate the asset is not added due to unmatching format', () => {
-    cy.get('.modal-title').should('not.exist')
-    cy.get('[data-test="modal-body"]').should('not.exist')
-    cy.get('.valid-feedback').should('not.be.visible')
+    headingAlertAddingAsset().should('not.exist')
+    feedbackSAlertAddingAsset().should('not.exist')
+    labelConfirmationAddingAsset().should('not.be.visible')
 })
 
 And('Validate the asset is not added because of the name already exists', () => {
@@ -96,14 +91,13 @@ And('Validate the asset is not added because of the name already exists', () => 
         expect(interception.response.statusCode).to.eq(409)
     })
 
-    cy.get('[data-test="modal-body"]')
+    feedbackSAlertAddingAsset()
         .should('have.text', `Asset name should be unique. Assert with this name already exists`)
-        // cy.get('.valid-feedback').should('not.be.visible') // Bug, appears anyway
-        // cy.get('.modal-title').should('have.text', 'Asset already exist') // typo Bug, it says "alredy"
+        // headingAlertAddingAsset().should('have.text', 'Asset already exist') // typo Bug, it says "alredy"
 })
 
 Then('Validate the asset is not added due to empty asset name field', () => {
-    cy.get('.modal-title').should('not.exist')
-    cy.get('[data-test="modal-body"]').should('not.exist')
-    cy.get('.valid-feedback').should('not.be.visible')
+    headingAlertAddingAsset().should('not.exist')
+    feedbackSAlertAddingAsset().should('not.exist')
+    labelConfirmationAddingAsset().should('not.be.visible')
 })

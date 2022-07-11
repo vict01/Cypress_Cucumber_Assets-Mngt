@@ -4,12 +4,13 @@
     "version": "0.1.0",
     "private": true,
     "dependencies": {
-        "classnames": "^2.2.6",
-        "clone": "^2.1.1",
-        "cypress": "^9.7.0",
         "@testing-library/cypress": "^8.0.3",
+        "test-data-bot": "^0.8.0",
+        "cypress": "^9.7.0",
         "cypress-cucumber-preprocessor": "4.3.1",
         "multiple-cucumber-html-reporter": "^1.21.4",
+        "classnames": "^2.2.6",
+        "clone": "^2.1.1",
         "gh-pages": "^1.1.0",
         "lint-staged": "^6.0.1",
         "mdbreact": "^4.27.0",
@@ -35,9 +36,10 @@
         }
     },
     "scripts": {
-        "cy:run": "cypress run --env TAGS=\"not @skip\" --browser chrome --headed && npm run cucumber-report",
-        "cucumber-report": "npm run clean-old-report && node cucumber-html-report.js",
-        "clean-old-report": "del reports\\cucumber-htmlreport.html\\index.html",
+        "cy:test": "npm run cy:run && npm run cucumber-report && npm run open-report",
+        "cy:run": "cypress run --env TAGS=\"not @skip\" --browser chrome --headed",
+        "cucumber-report": "node cucumber-html-report.js",
+        "open-report": "explorer reports\\cucumber-htmlreport.html\\index.html",
         "start-api": "cd api && set FLASK_APP=app.py && python -m flask run",
         "start": "react-scripts start",
         "build": "react-scripts build",
@@ -48,7 +50,7 @@
         "precommit": "lint-staged"
     },
     "lint-staged": {
-        "*.{js,json,css,md}": [
+        "*.{js,json,css,md,sql,html}": [
             "prettier --write",
             "git add"
         ]

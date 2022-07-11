@@ -6,8 +6,5 @@
     "credentials": {
         "username": "",
         "password": ""
-    },
-    "webElements": {
-        "defaultElement": ""
     }
 }

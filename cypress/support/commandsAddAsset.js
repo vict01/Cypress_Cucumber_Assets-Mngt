@@ -1,16 +1,18 @@
 /// <reference types="cypress" />
 import { appData } from "../fixtures/fixture.json"
+import { dataBuilder } from './utils'
+import { addAssetTab, sendButton, closeButtonConfirmationAlert } from './POM/addAssetsPage'
 
 Cypress.Commands.add('clickOnAddAssetTab', () => {
-    cy.get('[testid="add-asset"]').click()
+    addAssetTab().click()
 })
 
 Cypress.Commands.add('clickOnSendButton', () => {
-    cy.get('[data-test="button"]').click()
+    sendButton().click()
 })
 
 Cypress.Commands.add('closePopUpAssetAdded', () => {
-    cy.get('[data-test="modal-footer"] > [data-test="button"]').click()
+    closeButtonConfirmationAlert().click()
 })
 
 Cypress.Commands.add('interceptGetAssets', () => {
@@ -35,34 +37,34 @@ Cypress.Commands.add('getAssets', () => {
         })
 })
 
-Cypress.Commands.add('createAssetName', (literalPart, counter) => {
-    let numericalPart = counter.toString()
-    numericalPart = numericalPart.padStart(10, '0');
-    let assetName = literalPart + numericalPart
+function generateAssetName() {
+    let { id } = dataBuilder()
+    id = id.toString().padStart(10, '0');
+    return `ISIN${id}`
+}
+
+Cypress.Commands.add('createAssetName', () => {
+    let assetName = generateAssetName()
 
     cy.getAssets()
         .then(arr => {
             if (arr.length) {
                 while (arr.includes(assetName)) {
-                    counter = counter + 1
-                    numericalPart = counter.toString()
-                    numericalPart = numericalPart.padStart(10, '0');
-                    assetName = literalPart + numericalPart
+                    assetName = generateAssetName()
                 }
             }
             return assetName
         })
 })
 
-Cypress.Commands.add('addMultipleAssets', (qty, counter) => {
+Cypress.Commands.add('addMultipleAssets', (qty) => {
     while (qty > 0) {
-        cy.createAssetName('ISIN', counter).then(assetName => {
+        cy.createAssetName().then(assetName => {
             cy.log(` It will be create the asset: ${assetName} `)
             cy.addAssets(assetName)
         })
         qty--
     }
-    cy.setCounter()
 })
 
 Cypress.Commands.add('getAssetsById', (assetId) => {

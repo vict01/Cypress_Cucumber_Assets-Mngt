@@ -1,10 +1,10 @@
 /// <reference types="cypress" />
 import { Given, When, And, Then } from "cypress-cucumber-preprocessor/steps"
-let counter, assetName
+import { labelNoRecordFound } from '../../support/POM/existingAssetsPage'
+let assetName
 
 Given('I have created a new asset', () => {
-    counter = Cypress.env('varCounter')
-    cy.createAssetName('ISIN', counter).then(el => {
+    cy.createAssetName().then(el => {
         cy.log(` The created name is: ${el}`)
         assetName = el
         cy.addAssets(assetName)
@@ -12,10 +12,14 @@ Given('I have created a new asset', () => {
 })
 
 Given('I will create the required assets up to {int}', (top) => {
-    counter = Cypress.env('varCounter')
-    let qty = counter >= top ? 0 : top - counter
-    cy.log(`The required amount of asset to reach ${top} are ${qty}`)
-    cy.addMultipleAssets(qty, counter)
+    let counter = 1
+    cy.getAssets().then(el => {
+        if (el.length) counter = el.length
+
+        let qty = counter >= top ? 0 : top - counter
+        cy.log(`The required amount of asset to reach ${top} are ${qty}`)
+        cy.addMultipleAssets(qty)
+    })
 })
 
 When('I go to the Existing Assets tab', () => {
@@ -23,11 +27,6 @@ When('I go to the Existing Assets tab', () => {
         if (el !== `${Cypress.config('baseUrl')}/assets`)
             cy.clickOnExistingAssetsTab()
     })
-})
-
-Then('I Sort by last assert name', () => {
-    cy.clickOnSortTable()
-    cy.sortTableAsc()
 })
 
 And('Verify the value is in the table', () => {
@@ -45,7 +44,7 @@ Then('I do a search by the asset name', () => {
 })
 
 Then('Verify there is no result in the table', () => {
-    cy.findAllByText(/No matching records found/i).should('be.visible')
+    labelNoRecordFound().should('be.visible')
 
     cy.getTableData().then(arr => {
         cy.log(`The resul is: ${arr}`)

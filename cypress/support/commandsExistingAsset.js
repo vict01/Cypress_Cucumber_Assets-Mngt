@@ -1,35 +1,27 @@
 /// <reference types="cypress" />
-import { appData } from "../fixtures/fixture.json"
-let counter
-
-Cypress.Commands.add('setCounter', () => {
-    cy.getAssets().then(el => {
-        if (el.length)
-            counter = el.length
-        else
-            counter = 1
-
-        Cypress.env('varCounter', counter);
-        cy.log(`The counter set is: ${counter}`)
-    })
-})
+import { existingAssetsTab, sortTableButton, sortTableAscButton, assetsTable, searchAssetsBar, showEntryDrop }
+from './POM/existingAssetsPage'
 
 Cypress.Commands.add('clickOnExistingAssetsTab', () => {
     cy.interceptGetAssets()
-    cy.get('.item').last().click()
+    existingAssetsTab().click()
     cy.waitGetAssets()
 })
 
 Cypress.Commands.add('clickOnSortTable', () => {
-    cy.get('.sorting').click()
+    sortTableButton().click()
+})
+
+Cypress.Commands.add('sortTableByLast', () => {
+    sortTableButton().dblclick()
 })
 
 Cypress.Commands.add('sortTableAsc', () => {
-    cy.get('.sorting_asc').click()
+    sortTableAscButton().click()
 })
 
 Cypress.Commands.add('getTableData', () => {
-    cy.get('[data-test="table-body"]').find('tr').as('table')
+    assetsTable().find('tr').as('table')
 
     cy.get('@table').then(row => {
         let arr = Object.keys(row)
@@ -39,9 +31,9 @@ Cypress.Commands.add('getTableData', () => {
 })
 
 Cypress.Commands.add('doAsearch', (text) => {
-    cy.get('[data-test="datatable-input"]').clear().type(text)
+    searchAssetsBar().clear().type(text)
 })
 
 Cypress.Commands.add('setShowEntry', (entry) => {
-    cy.get('.custom-select').select(entry)
+    showEntryDrop().select(entry)
 })
