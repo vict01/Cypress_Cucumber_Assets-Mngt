@@ -36,7 +36,7 @@
         }
     },
     "scripts": {
-        "cy:test": "npm run cy:run && npm run cucumber-report && npm run open-report",
+        "cy:test": "npm run cy:run & npm run cucumber-report && npm run open-report",
         "cy:run": "cypress run --env TAGS=\"not @skip\" --browser chrome --headed",
         "cucumber-report": "node cucumber-html-report.js",
         "open-report": "explorer reports\\cucumber-htmlreport.html\\index.html",

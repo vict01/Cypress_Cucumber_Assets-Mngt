@@ -74,8 +74,6 @@ The relevant framework files are included in the following folders.
 
 - If you want to omit any scenario before running test, just write @ignore on the top of the scenario word
 
-
-
 > Note (After running the tests):
 
 - Test results are visible in the Cypress UI panel, when you run test using the Cypress UI

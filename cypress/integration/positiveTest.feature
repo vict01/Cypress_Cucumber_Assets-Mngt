@@ -5,7 +5,7 @@ Feature: 1. Business critical positive scenarios
     Scenario: 1.1. Add an asset successfully
         Given I go to the Add Asset tab
         When Validate page title and url
-        #Below, the word ISIN is treated as a variable:
+        ## Below, the word ISIN is treated as a variable:
         And I type a valid name starting with ISIN in the asset input box
         And I press send button
         And Validate the asset was added successfully
